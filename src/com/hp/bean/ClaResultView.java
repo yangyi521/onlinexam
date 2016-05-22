@@ -1,4 +1,4 @@
-package com.hp.bean;
+ package com.hp.bean;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
