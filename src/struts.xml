@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.devMode" value="false" />
+	<package name="userlogin" namespace="/" extends="struts-default">
+		<action name="loginAction" class="com.hp.action.LoginAction">
+			<result name="input">/login.jsp</result>
+			<result name="stu_success">/student/index.jsp</result>
+			<result name="tea_success">/teacher/tindex.jsp</result>
+			<result name="adm_success">/manager/mindex.jsp</result>
+			<result name="return_success">/student/index.jsp</result>
+			<result name="error">/login.jsp</result>
+			<result name="logout">/login.jsp</result>
+		</action>
+		<action name="stu_*_*" class="com.hp.action.Stu{1}Action" method="{2}">
+			<result name="{2}_success">/student/{2}.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="changePwd_error">/student/changePwd.jsp</result>
+			<result name="personalInfo_update" type="chain">stu_Find_personalInfo</result>
+			<result name="pastExam" type="chain">stu_Find_pastExam</result>
+		</action>
+		<action name="tea_*_*" class="com.hp.action.Tea{1}Action" method="{2}">
+			<result name="quesSuccess" type="chain">tea_Find_quesBank</result>
+			<result name="{2}_success">/teacher/{2}.jsp</result>
+			<result name="changePwd_error">/teacher/tchangePwd.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="quesBank">/teacher/quesBank.jsp</result>
+			<result name="tpersonalInfo_update" type="chain">tea_Find_tpersonalInfo</result>
+		</action>
+		<action name="sys_*_*" class="com.hp.action.Sys{1}Action" method="{2}">
+			<result name="quesSuccess" type="chain">sys_Find_quesBank</result>
+			<result name="{2}_success">/manager/{2}.jsp</result>
+			<result name="changePwd_error">/manager/mchangePwd.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="teaManagement_delete" type="chain">sys_Find_teaManagement</result>
+			<result name="stuManagement_delete" type="chain">sys_Find_stuManagement</result>
+			<result name="courseManagement_delete" type="chain">sys_Find_courseManagement</result>
+			<result name="classesManagement_delete" type="chain">sys_Find_classesManagement</result>
+		</action>
+		<action name="backIndex" class="com.hp.action.backAction">
+			<result name="stu_success" >/student/index.jsp</result>
+			<result name="tea_success">/teacher/tindex.jsp</result>
+			<result name="sys_success">/manager/mindex.jsp</result>
+		</action>
+		<!--重新定义的action  -->
+		<action name="managerchangepassword" class="">
+		<result name="success"></result>
+		<result name ="error"></result>
+		</action>
+	</package>
+</struts>
